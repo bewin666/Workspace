@@ -19,21 +19,13 @@ public class serverhandler extends ChannelInboundHandlerAdapter{
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws UnsupportedEncodingException {
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String body = new String(req, "UTF-8");
-        System.out.println("The time server receive order : " + body);
-        String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new java.util.Date(
-                System.currentTimeMillis()).toString() : "BAD ORDER";
-        ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes());
-        ctx.write(resp);
+        ctx.writeAndFlush("hello." + Msg);
 
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush("hello." + Msg);
+
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER) //flush掉所有写回的数据
                 .addListener(ChannelFutureListener.CLOSE); //当flush完成后关闭channel
     }

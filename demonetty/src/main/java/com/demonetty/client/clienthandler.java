@@ -33,7 +33,8 @@ public class clienthandler extends SimpleChannelInboundHandler<ByteBuf> {
      *此方法会在接收到服务器数据后调用
      * */
     public void channelRead0(ChannelHandlerContext ctx, ByteBuf in) {
-        System.out.println("Client received: " + ByteBufUtil.hexDump(in.readBytes(in.readableBytes())));
+        //System.out.println("Client received: " + ByteBufUtil.hexDump(in.readBytes(in.readableBytes())));
+        System.out.print("Server: " + in);
     }
     /**
      *捕捉到异常
